@@ -23,7 +23,7 @@ conn,addr = s.accept()
 print("Connection extablished")
 
 #Overwrite and clean log file for new run
-log_file = open("../sensorlog.csv","w")
+log_file = open("sensorlog.csv","w")
 log_file.close()
 
 #Array for storing 10 most recent sensor samples
@@ -81,7 +81,7 @@ def log_check():
 @app.route("/download")
 def log_down():
     #Path of sensorlog file
-    path = "../sensorlog.csv"
+    path = "sensorlog.csv"
     #Return file as downloadable attachment
     return send_file(path,as_attachment=True)
 
@@ -140,7 +140,7 @@ def receive():
             log_list.append([msg[0],msg[1],datetime.now().date().strftime("%d:%m:%y"),str(datetime.now().time())[0:8]])
 
             #Append new entry to sensorlog file (light, temp, date, time)
-            log_file = open("../sensorlog.csv","a")
+            log_file = open("sensorlog.csv","a")
             log_file.write(msg[0]+","+msg[1]+","+datetime.now().date().strftime("%d:%m:%y")+","+str(datetime.now().time())[0:8]+"\n")
             log_file.close()
 
