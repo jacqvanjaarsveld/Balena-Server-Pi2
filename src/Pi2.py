@@ -81,7 +81,7 @@ def log_check():
 @app.route("/download")
 def log_down():
     #Path of sensorlog file
-    path = "sensorlog.csv"
+    path = "/usr/src/app/sensorlog.csv"
     #Return file as downloadable attachment
     return send_file(path,as_attachment=True)
 
