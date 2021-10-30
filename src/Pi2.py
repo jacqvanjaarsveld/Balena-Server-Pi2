@@ -23,7 +23,7 @@ conn,addr = s.accept()
 print("Connection extablished")
 
 #Overwrite and clean log file for new run
-log_file = open("sensorlog.csv","w")
+log_file = open("/usr/src/app/sensorlog.csv","w")
 log_file.close()
 
 #Array for storing 10 most recent sensor samples
@@ -114,7 +114,6 @@ def main():
     #Render main html file with clickable links
     return render_template('root.html', title='Root')
 
-#RECEIVING==============================================================
 def receive():
     global log_list, status, valid_status
     #Thread to constantly listen for messages from clients
@@ -127,13 +126,12 @@ def receive():
         reply = reply.decode('utf-8')
         #extract command char
         cmd = reply[0]
-
+        
         #S - message code of 'SENSOR' data message
         if(cmd == "S"):
             #Parse sensor data
             whole = reply.split(" ")
             msg = whole[2].split("#")
-            #Clear buffer of multiple older msgs
             if(not msg[1][len(msg[1])-1].isdigit()): 
                 msg[1] = msg[1][0:len(msg[1])-1]
             #if array full, remove oldest entry
@@ -143,7 +141,7 @@ def receive():
             log_list.append([msg[0],msg[1],datetime.now().date().strftime("%d:%m:%y"),str(datetime.now().time())[0:8]])
 
             #Append new entry to sensorlog file (light, temp, date, time)
-            log_file = open("sensorlog.csv","a")
+            log_file = open("/usr/src/app/sensorlog.csv","a")
             log_file.write(msg[0]+","+msg[1]+","+datetime.now().date().strftime("%d:%m:%y")+","+str(datetime.now().time())[0:8]+"\n")
             log_file.close()
 
@@ -159,7 +157,6 @@ def receive():
 
     #Terminate second thread
     quit()
-#===============================================================
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
