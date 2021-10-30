@@ -8,6 +8,6 @@ This project should print out the url of the Flask webserver, which can also be 
 
 The server-client interaction can be monitored from the Balena webportal.
 
-This repository also contains a Youtube link to a video in which we demonstarte the functioning of our server
+This repository also contains a Youtube link to a video in which we demonstarte the functioning of our server.
 
 ## Authors: James Burness (BNRJAM019), Jacq van Jaarsveld (VJRJAC003)
