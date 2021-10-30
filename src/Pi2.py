@@ -114,6 +114,7 @@ def main():
     #Render main html file with clickable links
     return render_template('root.html', title='Root')
 
+#RECEIVING==============================================================
 def receive():
     global log_list, status, valid_status
     #Thread to constantly listen for messages from clients
@@ -132,7 +133,9 @@ def receive():
             #Parse sensor data
             whole = reply.split(" ")
             msg = whole[2].split("#")
-
+            #Clear buffer of multiple older msgs
+            if(not msg[1][len(msg[1])-1].isdigit()): 
+                msg[1] = msg[1][0:len(msg[1])-1]
             #if array full, remove oldest entry
             if len(log_list) == 10:
                 log_list.pop(0)
@@ -156,6 +159,7 @@ def receive():
 
     #Terminate second thread
     quit()
+#===============================================================
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
